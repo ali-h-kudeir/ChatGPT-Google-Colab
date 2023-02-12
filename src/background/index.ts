@@ -47,6 +47,18 @@ Browser.runtime.onMessage.addListener(async (message) => {
   }
 });
 
+Browser.action.onClicked.addListener((tab) => {
+  const currentUrl = tab.url ?? '';
+  // check if the current URL is a GitHub URL
+  if (currentUrl.includes('github.com')) {
+    if (tab.id) {
+      const newUrl = currentUrl.replace('github.com', 'githubtocolab.com');
+      Browser.tabs.create({ url: newUrl });
+    }
+  }
+  return;
+});
+
 Browser.runtime.onInstalled.addListener((details) => {
   if (details.reason === 'install') {
     Browser.runtime.openOptionsPage();

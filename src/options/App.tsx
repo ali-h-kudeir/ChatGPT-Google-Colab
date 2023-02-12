@@ -40,6 +40,9 @@ function OptionsPage() {
           <a href="https://github.com/ali-h-kudeir/ChatGPT-Google-Colab" target="_blank" rel="noreferrer">
             Source code
           </a>
+          <a href="https://www.producthunt.com/products/chatgpt-for-google-colab/" target="_blank" rel="noreferrer">
+            ProductHunt
+          </a>
         </div>
       </nav>
       <main className="w-[500px] mx-auto mt-14">

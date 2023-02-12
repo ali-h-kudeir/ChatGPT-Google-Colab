@@ -2,16 +2,18 @@ import { render } from 'preact';
 import '../base.css';
 import { getUserConfig, UserConfig } from '../config';
 import ChatGPTCard from './ChatGPTCard';
-import { insertAfter } from './extract-cells';
 import { config } from './search-engine-configs';
 import { getPossibleElementByQuerySelector } from './utils';
 
 const siteRegex = 'colab'; //new RegExp(Object.keys(config).join('|'))
 
-const siteName = location.hostname.match(siteRegex)![0];
-const siteConfig = config[siteName];
+export function insertAfter(newNode: Element, referenceNode: Element) {
+  (referenceNode.parentNode as Element).insertBefore(newNode, referenceNode.nextSibling);
+}
 
 async function mount(parentContainer: Element, userConfig: UserConfig) {
+  const siteName = location.hostname.match(siteRegex)![0];
+  const siteConfig = config[siteName];
   const inputCell = getPossibleElementByQuerySelector(siteConfig.cellQuery, parentContainer)[0] as HTMLTextAreaElement;
 
   const chatGptButton = document.createElement('button');
@@ -49,6 +51,13 @@ async function mount(parentContainer: Element, userConfig: UserConfig) {
 }
 
 async function run() {
+  if (!window.location.href.includes('colab.research.google.com')) {
+    return;
+  }
+
+  const siteName = location.hostname.match(siteRegex)![0];
+  const siteConfig = config[siteName];
+
   const codeBlocks = getPossibleElementByQuerySelector(siteConfig.codeBlocksQuery) ?? [];
 
   const userConfig = await getUserConfig();
@@ -61,7 +70,7 @@ async function run() {
 
   // attach chatgpt to newly added code cells.
   const targetNode = document.body;
-  const config = { childList: true, subtree: true };
+  const nodeConfig = { childList: true, subtree: true };
   const observer = new MutationObserver(function (mutationsList) {
     for (const mutation of mutationsList) {
       if (mutation.type === 'childList') {
@@ -77,7 +86,7 @@ async function run() {
       }
     }
   });
-  observer.observe(targetNode, config);
+  observer.observe(targetNode, nodeConfig);
 }
 
 if (document.readyState === 'loading') {

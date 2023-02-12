@@ -23,8 +23,6 @@ function ChatGPTCard({ question, userConfig }: Props) {
     setRetrieve(true);
   };
 
-  const submitDisabled = prompt.trim() === '';
-
   if (closed) {
     return null;
   }
@@ -38,7 +36,7 @@ function ChatGPTCard({ question, userConfig }: Props) {
         <select
           onChange={(e) => setPrompt(e.target.value)}
           id="countries"
-          className="w-full prompt-select colab-text outline-none focus:border-blue-400 focus-within:border-blue-400"
+          className="w-full prompt-select colab-text outline-none colab-border focus:border-blue-400 focus-within:border-blue-400"
         >
           <option>Select ChatGPT Task</option>
           <option value={PROMPTS.EXPLAIN}>1. Explain</option>
@@ -56,11 +54,7 @@ function ChatGPTCard({ question, userConfig }: Props) {
           {prompt}
         </textarea>
         <div className="flex items-center gap-3 my-2">
-          <button
-            className={`colab-button cursor-pointer ${submitDisabled ? 'opacity-80' : 'opacity-100'}`}
-            disabled={submitDisabled}
-            onClick={() => handleButtonClick()}
-          >
+          <button className="colab-button cursor-pointer" onClick={() => handleButtonClick()}>
             Submit
           </button>
           <div className="flex items-center">
@@ -77,9 +71,14 @@ function ChatGPTCard({ question, userConfig }: Props) {
           </div>
         </div>
         <ChatGPTQuery query={query} retrieve={retrieve} />
-        <button className="colab-button z-20 relative mt-5 cursor-pointer" onClick={() => setClosed(true)}>
-          Close
-        </button>
+        <div className="flex items-center gap-5 mt-5">
+          <button className="colab-button z-20 relative mt-5 cursor-pointer" onClick={() => setClosed(true)}>
+            Close
+          </button>
+          <button className="colab-button z-20 relative mt-5 cursor-pointer" onClick={() => setPrompt('')}>
+            Reset
+          </button>
+        </div>
       </div>
     </Accordion>
   );

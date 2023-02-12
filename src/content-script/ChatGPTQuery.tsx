@@ -24,6 +24,8 @@ function ChatGPTQuery({ query, retrieve }: Props) {
   const [status, setStatus] = useState<QueryStatus>();
   const [copied, setCopied] = useState(false);
 
+  const isChrome = /chrome/i.test(navigator.userAgent);
+
   useEffect(() => {
     if (!retrieve) {
       return;
@@ -105,8 +107,16 @@ function ChatGPTQuery({ query, retrieve }: Props) {
         {done && showTip && (
           <p className="italic mt-2">
             Enjoy this extension? Give us a 5-star rating at{' '}
-            <a href="" target="_blank" rel="noreferrer">
-              Chrome Web Store
+            <a
+              href={
+                isChrome
+                  ? 'https://chrome.google.com/webstore/detail/chatgpt-for-google-colab/dfhfeifekpgapdlhfakecbbinnnfoohh'
+                  : 'https://addons.mozilla.org/en-US/firefox/addon/chatgpt-for-google-colab/'
+              }
+              target="_blank"
+              rel="noreferrer"
+            >
+              {isChrome ? 'Chrome' : 'Firefox'} Web Store
             </a>
           </p>
         )}
