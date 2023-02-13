@@ -3,13 +3,12 @@
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ali-h-kudeir/chatgpt-google-colab/pre-release-build.yml)
 ![Visitors](https://visitor-badge.glitch.me/badge?page_id=ali-h-kudeir.chat-gpt-google-extension&left_color=green&right_color=red)
 [![Twitter Follow](https://img.shields.io/twitter/follow/ali_h_kudeir?style=social)](https://twitter.com/ali_h_kudeir)
-![License](https://img.shields.io/github/license/ali-h-kudeir/chatgpt-google-colab)
 
 A browser extension to interact with ChatGPT inside Google Colab code cells.
 
-[Install from Chrome Web Store](https://chatgpt4google.com/chrome?utm_source=github)
+[Install from Chrome Web Store](https://chrome.google.com/webstore/detail/chatgpt-for-google-colab/dfhfeifekpgapdlhfakecbbinnnfoohh)
 
-[Install from Mozilla Add-on Store](https://chatgpt4google.com/firefox?utm_source=github)
+[Install from Mozilla Add-on Store](https://addons.mozilla.org/en-US/firefox/addon/chatgpt-for-google-colab/)
 
 ## Supported Jupyter notebook environments
 
@@ -32,7 +31,6 @@ Currently I'm only supporting Google Colab, and very soon to include Jupyter Not
 - [x] Dark & Light mode support.
 - [x] Adapting to newly added code cells.
 - [ ] Supporting other notebooks environments
-- [ ] Google Analytics event capturing
 - [x] Copying ChatGPT responses
 
 
