@@ -11,11 +11,10 @@ import { shouldShowRatingTip } from './utils.js';
 export type QueryStatus = 'success' | 'error' | undefined;
 
 interface Props {
-  query: string;
-  retrieve: boolean;
+  body: string;
 }
 
-function ChatGPTQuery({ query, retrieve }: Props) {
+function ChatGPTQuery({ body }: Props) {
   const [answer, setAnswer] = useState<Answer | null>(null);
   const [error, setError] = useState('');
   const [retry, setRetry] = useState(0);
@@ -27,7 +26,7 @@ function ChatGPTQuery({ query, retrieve }: Props) {
   const isChrome = /chrome/i.test(navigator.userAgent);
 
   useEffect(() => {
-    if (!retrieve) {
+    if (!body) {
       return;
     }
     const port = Browser.runtime.connect();
@@ -43,12 +42,12 @@ function ChatGPTQuery({ query, retrieve }: Props) {
       }
     };
     port?.onMessage.addListener(listener);
-    port?.postMessage({ question: query });
+    port?.postMessage({ question: body });
     return () => {
       port?.onMessage.removeListener(listener);
       port?.disconnect();
     };
-  }, [query, retrieve, retry]);
+  }, [body, retry]);
 
   // retrieve error on focus
   useEffect(() => {
@@ -72,7 +71,7 @@ function ChatGPTQuery({ query, retrieve }: Props) {
     if (status === 'success') {
       captureEvent('show_answer', { host: location.host, language: navigator.language });
     }
-  }, [query, status]);
+  }, [body, status]);
 
   const clickCopyToClipboard = async () => {
     await navigator.clipboard.writeText(answer?.text ?? '');
@@ -147,7 +146,7 @@ function ChatGPTQuery({ query, retrieve }: Props) {
     );
   }
 
-  return retrieve ? <p className="text-[#b6b8ba] animate-pulse">Waiting for ChatGPT response...</p> : null;
+  return body ? <p className="text-[#b6b8ba] animate-pulse">Waiting for ChatGPT response...</p> : null;
 }
 
 export default memo(ChatGPTQuery);
