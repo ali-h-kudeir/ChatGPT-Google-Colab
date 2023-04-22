@@ -1,4 +1,4 @@
-# ChatGPT for Google
+# ChatGPT for Google Colab
 
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ali-h-kudeir/chatgpt-google-colab/pre-release-build.yml)
 ![Visitors](https://visitor-badge.glitch.me/badge?page_id=ali-h-kudeir.chatgpt-google-colab&left_color=green&right_color=red)

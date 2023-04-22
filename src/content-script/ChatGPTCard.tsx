@@ -12,15 +12,17 @@ interface Props {
 function ChatGPTCard({ question, userConfig }: Props) {
   const [prompt, setPrompt] = useState('');
   const [includeCurrentCell, setIncludeCurrentCell] = useState(true);
-  const [retrieve, setRetrieve] = useState(false);
+
   const [closed, setClosed] = useState(false);
+
+  const [body, setBody] = useState('');
 
   const language = userConfig.language === Language.Auto ? '' : `(in ${userConfig.language})`;
 
   const query = includeCurrentCell ? `${prompt}\n${language}\n${question}` : `${prompt}\n${language}`;
 
   const handleButtonClick = () => {
-    setRetrieve(true);
+    setBody(query);
   };
 
   if (closed) {
@@ -70,7 +72,7 @@ function ChatGPTCard({ question, userConfig }: Props) {
             </label>
           </div>
         </div>
-        <ChatGPTQuery query={query} retrieve={retrieve} />
+        <ChatGPTQuery body={body} />
         <div className="flex items-center gap-5 mt-5">
           <button className="colab-button z-20 relative mt-5 cursor-pointer" onClick={() => setClosed(true)}>
             Close
