@@ -1,6 +1,7 @@
 import { ChevronUpIcon } from '@primer/octicons-react';
 import { useEffect, useState } from 'preact/hooks';
 import { ReactNode } from 'react';
+import useDynamicMaxHeight from './use-dynamic-max-height';
 
 type Props = {
   children: ReactNode;
@@ -13,6 +14,8 @@ export default function Accordion({ children, visible }: Props) {
   useEffect(() => {
     if (typeof visible === 'boolean') setIsVisible(visible);
   }, [visible]);
+
+  const { ref, contentHeight } = useDynamicMaxHeight();
 
   return (
     <>
@@ -32,9 +35,11 @@ export default function Accordion({ children, visible }: Props) {
         </div>
       </button>
       <div
-        className={`${isVisible ? 'visible max-h-[1000px]' : 'overflow-hidden max-h-0'} mb-2`}
+        ref={ref}
+        className={`${isVisible ? `visible` : 'overflow-hidden max-h-0'} mb-2`}
         style={{
-          transition: 'max-height 300ms ease-in-out',
+          transition: 'max-height 200ms ease-in-out',
+          maxHeight: isVisible ? `${Math.max(contentHeight ?? 0, 1000)}px` : 0,
         }}
       >
         {children}
