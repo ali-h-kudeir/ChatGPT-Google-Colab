@@ -1,4 +1,5 @@
 import { useState } from 'preact/hooks';
+import { useId } from 'react';
 import { Language, UserConfig } from '../config';
 import Accordion from './accordion';
 import ChatGPTQuery from './ChatGPTQuery';
@@ -11,6 +12,9 @@ interface Props {
 
 function ChatGPTCard({ question, userConfig }: Props) {
   const [prompt, setPrompt] = useState('');
+
+  const id = useId();
+
   const [includeCurrentCell, setIncludeCurrentCell] = useState(true);
 
   const [closed, setClosed] = useState(false);
@@ -61,13 +65,13 @@ function ChatGPTCard({ question, userConfig }: Props) {
           </button>
           <div className="flex items-center">
             <input
-              id="default-checkbox"
+              id={'default-checkbox-' + id}
               type="checkbox"
               onChange={() => setIncludeCurrentCell(!includeCurrentCell)}
               checked={includeCurrentCell}
               className="w-3 h-3 text-blue-400 focus:border-2 colab-border rounded focus:ring-blue-400 dark:focus:ring-blue-400 dark:ring-offset-gray-800 focus:ring-2"
             />
-            <label htmlFor="default-checkbox" className="ml-1.5 colab-text text-xs">
+            <label htmlFor={'default-checkbox-' + id} className="ml-1.5 colab-text text-xs">
               Include code
             </label>
           </div>
