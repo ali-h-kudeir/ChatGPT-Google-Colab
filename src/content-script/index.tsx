@@ -22,7 +22,7 @@ async function mount(parentContainer: Element, userConfig: UserConfig) {
 
   chatGptButton.innerText = 'ChatGPT';
 
-  chatGptButton.classList.add('chatgpt-button', 'add-code', 'add-button');
+  chatGptButton.classList.add('chatgpt-button', 'add-code', 'add-button', 'shadow-sm');
 
   chatGptButton.addEventListener('click', () => {
     if (container) {
