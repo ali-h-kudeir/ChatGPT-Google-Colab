@@ -1,5 +1,4 @@
 import { useState } from 'preact/hooks';
-import { useId } from 'react';
 import { Language, UserConfig } from '../config';
 import Accordion from './accordion';
 import ChatGPTQuery from './ChatGPTQuery';
@@ -13,7 +12,7 @@ interface Props {
 function ChatGPTCard({ question, userConfig }: Props) {
   const [prompt, setPrompt] = useState('');
 
-  const id = useId();
+  const id = new Date().getTime();
 
   const [includeCurrentCell, setIncludeCurrentCell] = useState(true);
 
@@ -42,7 +41,7 @@ function ChatGPTCard({ question, userConfig }: Props) {
         <select
           onChange={(e) => setPrompt(e.target.value)}
           id="countries"
-          className="w-full prompt-select colab-text outline-none colab-border focus:border-blue-400 focus-within:border-blue-400"
+          className="w-full prompt-select colab-text outline-none colab-border focus:border-indigo-400 focus-within:border-indigo-400"
         >
           <option>Select ChatGPT Task</option>
           <option value={PROMPTS.EXPLAIN}>1. Explain</option>
@@ -53,14 +52,14 @@ function ChatGPTCard({ question, userConfig }: Props) {
         </select>
         <textarea
           onChange={(e) => setPrompt(e.target.value)}
-          className="iron-textarea mt-2 box-border resize-y colab-border input w-full outline-none p-1.5 rounded-sm focus:border-blue-400"
+          className="iron-textarea mt-2 box-border resize-y colab-border input w-full outline-none p-1.5 rounded-sm focus:border-indigo-400"
           placeholder="Type a custom prompt"
           rows={4}
         >
           {prompt}
         </textarea>
         <div className="flex items-center gap-3 my-2">
-          <button className="colab-button cursor-pointer" onClick={() => handleButtonClick()}>
+          <button className="submit-button cursor-pointer bg-indigo-500 text-white" onClick={() => handleButtonClick()}>
             Submit
           </button>
           <div className="flex items-center">
@@ -69,9 +68,9 @@ function ChatGPTCard({ question, userConfig }: Props) {
               type="checkbox"
               onChange={() => setIncludeCurrentCell(!includeCurrentCell)}
               checked={includeCurrentCell}
-              className="w-3 h-3 text-blue-400 focus:border-2 colab-border rounded focus:ring-blue-400 dark:focus:ring-blue-400 dark:ring-offset-gray-800 focus:ring-2"
+              className="w-3 h-3 accent-indigo-500 focus:border-2 colab-border rounded focus:ring-indigo-400 dark:focus:ring-indigo-400 dark:ring-offset-gray-800 focus:ring-2"
             />
-            <label htmlFor={'default-checkbox-' + id} className="ml-1.5 colab-text text-xs">
+            <label htmlFor={'default-checkbox-' + id} className="ml-1.5 colab-text text-xs select-none">
               Include code
             </label>
           </div>
